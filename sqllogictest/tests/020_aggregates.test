@@ -1,0 +1,80 @@
+# 聚合与 GROUP BY
+
+statement ok
+CREATE TABLE sales(region TEXT, amount INTEGER)
+
+statement ok
+INSERT INTO sales VALUES('east', 10)
+
+statement ok
+INSERT INTO sales VALUES('east', 20)
+
+statement ok
+INSERT INTO sales VALUES('west', 30)
+
+statement ok
+INSERT INTO sales VALUES('west', 40)
+
+statement ok
+INSERT INTO sales VALUES('north', NULL)
+
+query I
+SELECT count(*) FROM sales
+----
+5
+
+query I
+SELECT count(amount) FROM sales
+----
+4
+
+query I
+SELECT sum(amount) FROM sales
+----
+100
+
+query I
+SELECT min(amount) FROM sales
+----
+10
+
+query I
+SELECT max(amount) FROM sales
+----
+40
+
+query R
+SELECT avg(amount) FROM sales
+----
+25.000
+
+query TII
+SELECT region, count(*), sum(amount) FROM sales GROUP BY region ORDER BY region
+----
+east
+2
+30
+north
+1
+NULL
+west
+2
+70
+
+query TI
+SELECT region, count(*) FROM sales GROUP BY region HAVING count(*) > 1 ORDER BY region
+----
+east
+2
+west
+2
+
+query I
+SELECT count(DISTINCT region) FROM sales
+----
+3
+
+query I
+SELECT sum(amount) FROM sales WHERE region = 'east'
+----
+30

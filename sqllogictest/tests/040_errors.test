@@ -1,0 +1,49 @@
+# 错误路径:期望失败的语句
+
+statement ok
+CREATE TABLE t1(a INTEGER)
+
+statement error
+CREATE TABLE t1(a INTEGER)
+
+statement error
+INSERT INTO t1 VALUES(1, 2, 3)
+
+statement error
+INSERT INTO t1 VALUES('not-an-int')
+
+statement ok
+CREATE TABLE t2(x INTEGER NOT NULL)
+
+statement error
+INSERT INTO t2 VALUES(NULL)
+
+statement ok
+CREATE TABLE t3(y INTEGER UNIQUE)
+
+statement ok
+INSERT INTO t3 VALUES(1)
+
+statement error
+INSERT INTO t3 VALUES(1)
+
+statement error
+SELECT nope FROM t1
+
+statement error
+SELECT a FROM missing_table
+
+statement error
+DROP TABLE missing_table
+
+statement error
+DROP INDEX missing_index
+
+statement error
+DROP VIEW missing_view
+
+statement error
+SELECT abs()
+
+statement error
+SELECT 1 +
