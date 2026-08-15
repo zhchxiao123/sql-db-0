@@ -1,0 +1,166 @@
+# 表达式:算术、比较、逻辑、函数
+
+query I
+SELECT 1 + 1
+----
+2
+
+query I
+SELECT 5 - 2
+----
+3
+
+query I
+SELECT 3 * 4
+----
+12
+
+query I
+SELECT 7 / 2
+----
+3
+
+query R
+SELECT 7.0 / 2
+----
+3.500
+
+query I
+SELECT 7 % 3
+----
+1
+
+query I
+SELECT -5 + 10
+----
+5
+
+query I
+SELECT 1 < 2
+----
+1
+
+query I
+SELECT 2 <= 1
+----
+0
+
+query I
+SELECT 3 = 3
+----
+1
+
+query I
+SELECT 3 != 4
+----
+1
+
+query I
+SELECT 1 AND 1
+----
+1
+
+query I
+SELECT 1 AND 0
+----
+0
+
+query I
+SELECT 1 OR 0
+----
+1
+
+query I
+SELECT NOT 0
+----
+1
+
+query I
+SELECT abs(-3)
+----
+3
+
+query T
+SELECT lower('HELLO')
+----
+hello
+
+query T
+SELECT upper('world')
+----
+WORLD
+
+query I
+SELECT length('hello')
+----
+5
+
+query I
+SELECT coalesce(NULL, 42)
+----
+42
+
+query T
+SELECT 'a' || 'b' || 'c'
+----
+abc
+
+query T
+SELECT substr('hello', 2, 3)
+----
+ell
+
+query T
+SELECT trim('  hi  ')
+----
+hi
+
+query I
+SELECT CASE WHEN 1 > 0 THEN 10 ELSE 20 END
+----
+10
+
+query I
+SELECT CASE WHEN 0 > 0 THEN 10 ELSE 20 END
+----
+20
+
+query I
+SELECT 5 BETWEEN 1 AND 10
+----
+1
+
+query I
+SELECT 5 IN (1, 3, 5)
+----
+1
+
+query I
+SELECT 5 IN (1, 3)
+----
+0
+
+query I
+SELECT 'hello' LIKE '%ell%'
+----
+1
+
+query I
+SELECT 'hello' LIKE 'h_llo'
+----
+1
+
+query I
+SELECT 'hello' LIKE 'xyz'
+----
+0
+
+query I
+SELECT NULL IS NULL
+----
+1
+
+query I
+SELECT 1 IS NOT NULL
+----
+1
