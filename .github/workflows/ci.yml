@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-base:
+    name: Build + unit tests + sqllogictest test base
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build
+        run: make build
+
+      - name: Unit tests
+        run: make test
+
+      - name: Run sqllogictest test base
+        run: make run
+
+      - name: Upload sqllogictest report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sqllogictest-report
+          path: /tmp/sqldb0-slt-report.json
