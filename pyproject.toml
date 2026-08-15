@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sqldb0"
+version = "0.1.0"
+description = "A minimal SQL database engine with a sqllogictest runner"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+sqldb0-runner = "sqldb0.runner:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
